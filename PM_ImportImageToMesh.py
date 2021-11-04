@@ -8,12 +8,13 @@ from bpy_extras.image_utils import load_image
 from bmesh.ops import dissolve_limit
 
 from .modules.assignNewMaterialFromColorsGroup import assignNewMaterialFromColorsGroup
+from .modules.assignUVsFromColorsGroupAndTexture import (
+    assignUVsFromColorsGroupAndTexture,
+)
 from .modules.getColorsGroupMeshData import getColorsGroupMeshData
 from .modules.createBmeshPlaneFromImageDimensions import (
     createBmeshPlaneFromImageDimensions,
 )
-
-from .utils.toPowSquare import toPowSquare
 
 
 class PM_ImportImageToMesh(Operator, ImportHelper):
@@ -96,9 +97,18 @@ class PM_ImportImageToMesh(Operator, ImportHelper):
             me.materials.append(existing_material)
 
             if existing_texture:
-                assignUVsTexture = None
+                assignUVsFromColorsGroupAndTexture(
+                    colors_group=colors_group, bm=bm, texture=existing_texture
+                )
+
         else:
-            assignNewMaterialFromColorsGroup(bm, me, colors_group, name=mesh_name)
+            assignNewMaterialFromColorsGroup(
+                bm=bm,
+                me=me,
+                colors_group=colors_group,
+                name=mesh_name,
+                texture=existing_texture,
+            )
 
         # Disolve mesh if option was set
         if self.apply_disolve:
