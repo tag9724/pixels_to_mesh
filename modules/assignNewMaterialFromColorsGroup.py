@@ -2,10 +2,9 @@ import bpy
 from ..utils.toPowSquare import toPowSquare
 
 
-def assignNewMaterialFromColorsGroup(bm, colors_group):
-
-    # Name of Texture & Material
-    name = "Pixels to Mesh"
+def assignNewMaterialFromColorsGroup(
+    bm, me, colors_group, name="Pixels to Mesh", texture=None
+):
 
     # Create new Material
     material = bpy.data.materials.new(name=name)
@@ -15,10 +14,15 @@ def assignNewMaterialFromColorsGroup(bm, colors_group):
     uv_layer = bm.loops.layers.uv.verify()
 
     # Create Texture image
+    # TODO: Should be ingored when texture param is set
     texture_dimensions = toPowSquare(len(colors_group))
     texture = bpy.data.images.new(
         name=name, height=texture_dimensions, width=texture_dimensions, alpha=True
     )
+
+    # TODO: Seperate it in another modules, no texture should be generated when param is set only UVs
+    # First module will used texture passed as param (+ colors_group) to generate UVs
+    # Second module will generate a texture and assign UVs based on it ( code below litteraly )
 
     for color in colors_group:
         group = colors_group[color]
@@ -53,5 +57,4 @@ def assignNewMaterialFromColorsGroup(bm, colors_group):
     bsdf.inputs["Sheen Tint"].default_value = 0
 
     material.node_tree.links.new(bsdf.inputs["Base Color"], texImage.outputs["Color"])
-
-    return material
+    me.materials.append(material)
