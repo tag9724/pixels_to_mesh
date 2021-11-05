@@ -10,9 +10,11 @@ def assignFacesUVsFromColorGroup(
         for vert in face.loops:
 
             vert[uv_layer].uv[0] = (
-                uvsTileDimensions["center"] + uv_x * uvsTileDimensions["size"]
+                uvsTileDimensions["tile_x_center"]
+                + uv_x * uvsTileDimensions["tile_x_size"]
             )
 
             vert[uv_layer].uv[1] = (
-                uvsTileDimensions["center"] + uv_y * uvsTileDimensions["size"]
+                uvsTileDimensions["tile_y_center"]
+                + uv_y * uvsTileDimensions["tile_y_size"]
             )

@@ -12,7 +12,7 @@ def createNewTextureFromColorsGroupAndAssignUVs(
     uv_layer = bm.loops.layers.uv.verify()
 
     dimensions = toPowSquare(len(colors_group))
-    uvsTileDimensions = getUVsTileDimensions(dimensions)
+    uvsTileDimensions = getUVsTileDimensions(dimensions, dimensions)
 
     texture = bpy.data.images.new(
         name=name, height=dimensions, width=dimensions, alpha=True

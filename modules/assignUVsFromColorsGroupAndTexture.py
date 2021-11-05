@@ -12,10 +12,10 @@ def assignUVsFromColorsGroupAndTexture(colors_group, bm, texture):
     pixel_index = 0
     color_index = 0
 
-    uv_layer = bm.loops.layers.uv.verify()
-    uvsTileDimensions = getUVsTileDimensions(texture.size[0])
+    hexs_set = set()
 
-    print("\nExisting texture : width ( ", texture.size[0], " )\n")
+    uv_layer = bm.loops.layers.uv.verify()
+    uvsTileDimensions = getUVsTileDimensions(texture.size[0], texture.size[1])
 
     while pixel_index < pixels_amount:
 
@@ -28,7 +28,11 @@ def assignUVsFromColorsGroupAndTexture(colors_group, bm, texture):
             )
         )
 
-        if hex in colors_group:
+        if hex not in hexs_set and hex in colors_group:
+
+            # Make sure we don't add UVs twice for the same color
+            hexs_set.add(hex)
+
             assignFacesUVsFromColorGroup(
                 color_group=colors_group[hex],
                 uv_layer=uv_layer,

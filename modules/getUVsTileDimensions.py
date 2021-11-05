@@ -1,6 +1,15 @@
-def getUVsTileDimensions(texture_width=8, texture_height= 8):
-    uv_tile_size = 1 / texture_width
-    uv_tile_center = uv_tile_size / 2
+def getUVsTileDimensions(texture_width=8, texture_height=8):
+    tile_x_size = 1 / texture_width
+    tile_x_center = tile_x_size / 2
 
-    # BUG: replace size with tile.width & tile.heigth, Non squared texture don't work
-    return {"size": uv_tile_size, "center": uv_tile_center, "width": texture_width}
+    tile_y_size = 1 / texture_height
+    tile_y_center = tile_y_size / 2
+
+    return {
+        "width": texture_width,
+        "height": texture_height,
+        "tile_x_size": tile_x_size,
+        "tile_x_center": tile_x_center,
+        "tile_y_size": tile_y_size,
+        "tile_y_center": tile_y_center,
+    }
