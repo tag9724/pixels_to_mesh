@@ -37,7 +37,7 @@ class PM_ImportImageToMesh(Operator, ImportHelper):
     apply_disolve: BoolProperty(
         name="Apply disolve",
         description="Merge all square by matching colors",
-        default=True,
+        default=False,
     )
     remove_transparent_pixels: BoolProperty(
         name="Remove transparent pixels",
