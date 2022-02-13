@@ -3,7 +3,7 @@ bl_info = {
     "author": "tag9724",
     "description": "Convert an image to a mesh",
     "blender": (2, 80, 0),
-    "version": (0, 0, 1),
+    "version": (1, 0, 0),
     "location": "",
     "warning": "",
     "support": "COMMUNITY",
