@@ -20,9 +20,11 @@ from .modules.createBmeshPlaneFromImageDimensions import (
 class PM_ImportImageToMesh(Operator, ImportHelper):
     """Pixels to Mesh - Create mesh with imported image"""
 
-    bl_idname = "object.import_image_to_mesh"
-    bl_label = "Import image to mesh"
-    bl_description = "Test Operator"
+    bl_idname = "object.pixels_to_mesh_import_image_to_mesh"
+    bl_label = "Pixels to Mesh : Import image"
+    bl_description = (
+        "Create a plane segmented and textured mesh using an imported image"
+    )
     bl_options = {"REGISTER", "UNDO"}
 
     filter_glob: StringProperty(
@@ -34,8 +36,8 @@ class PM_ImportImageToMesh(Operator, ImportHelper):
         default="Pixels to Mesh",
         description="Define the name of the generated mesh",
     )
-    apply_disolve: BoolProperty(
-        name="Apply disolve",
+    apply_dissolve: BoolProperty(
+        name="Apply dissolve",
         description="Merge all square by matching colors",
         default=False,
     )
@@ -66,7 +68,7 @@ class PM_ImportImageToMesh(Operator, ImportHelper):
         box = layout.box()
         box.label(text="Mesh Name")
         box.prop(self, "mesh_name", icon_only=True)
-        box.prop(self, "apply_disolve")
+        box.prop(self, "apply_dissolve")
         box.prop(self, "remove_transparent_pixels")
 
         layout.separator()
@@ -110,8 +112,8 @@ class PM_ImportImageToMesh(Operator, ImportHelper):
                 texture=existing_texture,
             )
 
-        # Disolve mesh if option was set
-        if self.apply_disolve:
+        # dissolve mesh if option was set
+        if self.apply_dissolve:
             dissolve_limit(bm, angle_limit=0.1, edges=bm.edges, delimit={"UV"})
             dissolve_limit(bm, angle_limit=0.1, verts=bm.verts, delimit={"UV"})
 

@@ -6,7 +6,8 @@ bl_info = {
     "version": (0, 0, 1),
     "location": "",
     "warning": "",
-    "category": "Generic",
+    "support": "COMMUNITY",
+    "category": "Add Mesh",
 }
 
 

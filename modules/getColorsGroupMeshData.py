@@ -18,7 +18,7 @@ def getColorsGroupMeshData(bm, image, should_remove_transparent=False):
     delete_faces = []
     color_index = 0
 
-    # Get list of faces by indentical colors
+    # Get list of faces by identical colors
 
     for face in bm.faces:
 
